@@ -21,13 +21,14 @@ const gameBoard = (() => {
             for (j = 0; j < 3; j++) {
                 const place = document.createElement("div");
                 place.classList = 'place';
-                place.dataset.index = [i, j];
+                place.dataset.rowIndex = i;
+                place.dataset.colIndex = j;
                 place.addEventListener('click', () => {
                     if (place.innerText == '') {
-                        addMarker(place)
+                        addMarker(place);
                     }
                 })
-                board.appendChild(place)
+                board.appendChild(place);
             }
         }
     }
@@ -38,6 +39,9 @@ const gameBoard = (() => {
         } else {
             place.innerText = player2.marker;
         }
+        var i = place.dataset.rowIndex;
+        var j = place.dataset.colIndex;
+        boardState[i][j] = place.innerText;
     }
     return { boardState, createBoard, addMarker }
 })();
