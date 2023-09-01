@@ -64,6 +64,7 @@ const gameBoard = (() => {
             results.innerText = `Draw!`;
             container.appendChild(results);
         }
+        board.setAttribute('id', 'disabledDiv');
     }
 
     const checkBoard = (boardState, player) => {
