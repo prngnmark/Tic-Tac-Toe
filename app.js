@@ -11,7 +11,7 @@ const player2 = player('Player 2', 'O');
 const gameBoard = (() => {
     var turn = 0;
     var winner = false;
-    const boardState =
+    var boardState =
         [
             ["1", "2", "3"],
             ["4", "5", "6"],
@@ -35,8 +35,6 @@ const gameBoard = (() => {
         }
     }
 
-
-
     const addMarker = (place) => {
         turn += 1
         var player;
@@ -57,6 +55,12 @@ const gameBoard = (() => {
     const displayResults = (player, winner) => {
         const results = document.createElement("span");
         results.classList = 'results';
+        const resetBtn = document.createElement('button');
+        resetBtn.classList = 'reset';
+        resetBtn.innerText = 'Reset Board';
+        resetBtn.addEventListener('click', () => {
+            resetBoard(results, resetBtn)
+        })
         if (winner == true) {
             results.innerText = `${player} Wins!`;
             container.appendChild(results);
@@ -65,6 +69,7 @@ const gameBoard = (() => {
             container.appendChild(results);
         }
         board.setAttribute('id', 'disabledDiv');
+        container.appendChild(resetBtn)
     }
 
     const checkBoard = (boardState, player) => {
@@ -81,6 +86,22 @@ const gameBoard = (() => {
         } else if (turn == 9) {
             displayResults(winner)
         }
+    }
+
+    const resetBoard = (results, resetBtn) => {
+        board.removeAttribute('id', 'disabledDiv');
+        turn = 0;
+        winner = false;
+        boardState =
+            [
+                ["1", "2", "3"],
+                ["4", "5", "6"],
+                ["7", "8", "9"]
+            ]
+        container.removeChild(results);
+        container.removeChild(resetBtn);
+        board.innerHTML = '';
+        createBoard();
     }
 
     return { createBoard }
